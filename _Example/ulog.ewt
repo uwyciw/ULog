@@ -193,8 +193,8 @@
                                 <check name="MEM-free-no-use" enabled="true" />
                                 <check name="MEM-free-op" enabled="true" />
                                 <check name="MEM-free-struct-field" enabled="true" />
-                                <check name="MEM-free-variable-alias" enabled="true" />
-                                <check name="MEM-free-variable" enabled="true" />
+                                <check name="MEM-free-pVariable-alias" enabled="true" />
+                                <check name="MEM-free-pVariable" enabled="true" />
                                 <check name="MEM-leak-alias" enabled="true" />
                                 <check name="MEM-leak" enabled="false" />
                                 <check name="MEM-malloc-arith" enabled="false" />
@@ -316,33 +316,33 @@
                             </group>
                         </package>
                         <package name="SECURITY" enabled="false">
-                            <group enabled="true" name="SEC-BUFFER">
-                                <check name="SEC-BUFFER-memory-leak-alias" enabled="true" />
-                                <check name="SEC-BUFFER-memory-leak" enabled="false" />
-                                <check name="SEC-BUFFER-memset-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-memset-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-qsort-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-qsort-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-sprintf-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-std-sort-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-std-sort-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-strcat-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-strcat-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-strcpy-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-strcpy-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-strncat-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-strncat-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-strncmp-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-strncmp-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-strncpy-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-strncpy-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-tainted-alloc-size" enabled="true" />
-                                <check name="SEC-BUFFER-tainted-copy-length" enabled="true" />
-                                <check name="SEC-BUFFER-tainted-copy" enabled="true" />
-                                <check name="SEC-BUFFER-tainted-index" enabled="true" />
-                                <check name="SEC-BUFFER-tainted-offset" enabled="true" />
-                                <check name="SEC-BUFFER-use-after-free-all" enabled="true" />
-                                <check name="SEC-BUFFER-use-after-free-some" enabled="true" />
+                            <group enabled="true" name="SEC-pBuffer">
+                                <check name="SEC-pBuffer-memory-leak-alias" enabled="true" />
+                                <check name="SEC-pBuffer-memory-leak" enabled="false" />
+                                <check name="SEC-pBuffer-memset-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-memset-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-qsort-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-qsort-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-sprintf-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-std-sort-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-std-sort-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-strcat-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-strcat-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-strcpy-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-strcpy-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-strncat-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-strncat-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-strncmp-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-strncmp-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-strncpy-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-strncpy-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-tainted-alloc-size" enabled="true" />
+                                <check name="SEC-pBuffer-tainted-copy-length" enabled="true" />
+                                <check name="SEC-pBuffer-tainted-copy" enabled="true" />
+                                <check name="SEC-pBuffer-tainted-index" enabled="true" />
+                                <check name="SEC-pBuffer-tainted-offset" enabled="true" />
+                                <check name="SEC-pBuffer-use-after-free-all" enabled="true" />
+                                <check name="SEC-pBuffer-use-after-free-some" enabled="true" />
                             </group>
                             <group enabled="true" name="SEC-DIV-0">
                                 <check name="SEC-DIV-0-compare-after" enabled="true" />
@@ -1377,8 +1377,8 @@
                                 <check name="MEM-free-no-use" enabled="true" />
                                 <check name="MEM-free-op" enabled="true" />
                                 <check name="MEM-free-struct-field" enabled="true" />
-                                <check name="MEM-free-variable-alias" enabled="true" />
-                                <check name="MEM-free-variable" enabled="true" />
+                                <check name="MEM-free-pVariable-alias" enabled="true" />
+                                <check name="MEM-free-pVariable" enabled="true" />
                                 <check name="MEM-leak-alias" enabled="true" />
                                 <check name="MEM-leak" enabled="false" />
                                 <check name="MEM-malloc-arith" enabled="false" />
@@ -1500,33 +1500,33 @@
                             </group>
                         </package>
                         <package name="SECURITY" enabled="false">
-                            <group enabled="true" name="SEC-BUFFER">
-                                <check name="SEC-BUFFER-memory-leak-alias" enabled="true" />
-                                <check name="SEC-BUFFER-memory-leak" enabled="false" />
-                                <check name="SEC-BUFFER-memset-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-memset-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-qsort-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-qsort-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-sprintf-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-std-sort-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-std-sort-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-strcat-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-strcat-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-strcpy-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-strcpy-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-strncat-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-strncat-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-strncmp-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-strncmp-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-strncpy-overrun-pos" enabled="false" />
-                                <check name="SEC-BUFFER-strncpy-overrun" enabled="true" />
-                                <check name="SEC-BUFFER-tainted-alloc-size" enabled="true" />
-                                <check name="SEC-BUFFER-tainted-copy-length" enabled="true" />
-                                <check name="SEC-BUFFER-tainted-copy" enabled="true" />
-                                <check name="SEC-BUFFER-tainted-index" enabled="true" />
-                                <check name="SEC-BUFFER-tainted-offset" enabled="true" />
-                                <check name="SEC-BUFFER-use-after-free-all" enabled="true" />
-                                <check name="SEC-BUFFER-use-after-free-some" enabled="true" />
+                            <group enabled="true" name="SEC-pBuffer">
+                                <check name="SEC-pBuffer-memory-leak-alias" enabled="true" />
+                                <check name="SEC-pBuffer-memory-leak" enabled="false" />
+                                <check name="SEC-pBuffer-memset-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-memset-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-qsort-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-qsort-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-sprintf-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-std-sort-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-std-sort-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-strcat-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-strcat-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-strcpy-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-strcpy-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-strncat-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-strncat-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-strncmp-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-strncmp-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-strncpy-overrun-pos" enabled="false" />
+                                <check name="SEC-pBuffer-strncpy-overrun" enabled="true" />
+                                <check name="SEC-pBuffer-tainted-alloc-size" enabled="true" />
+                                <check name="SEC-pBuffer-tainted-copy-length" enabled="true" />
+                                <check name="SEC-pBuffer-tainted-copy" enabled="true" />
+                                <check name="SEC-pBuffer-tainted-index" enabled="true" />
+                                <check name="SEC-pBuffer-tainted-offset" enabled="true" />
+                                <check name="SEC-pBuffer-use-after-free-all" enabled="true" />
+                                <check name="SEC-pBuffer-use-after-free-some" enabled="true" />
                             </group>
                             <group enabled="true" name="SEC-DIV-0">
                                 <check name="SEC-DIV-0-compare-after" enabled="true" />

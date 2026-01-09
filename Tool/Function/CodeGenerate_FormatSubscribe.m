@@ -11,7 +11,7 @@ fprintf(sourceFile, '{\n');
 
 %%
 %声明格式变量。
-fprintf(sourceFile, '  ULog_Message_Format_T format[] = \n');
+fprintf(sourceFile, '  ULOG_MESSAGE_FORMAT_T format[] = \n');
 fprintf(sourceFile, '  {\n');
 
 %逐个变量的初始化。
@@ -55,7 +55,7 @@ fprintf(sourceFile, '\n');
 
 %%
 %声明订阅变量。
-fprintf(sourceFile, '  ULog_Message_Subscribe_T subscribe[] = \n');
+fprintf(sourceFile, '  ULOG_MESSAGE_SUBSCRIBE_T subscribe[] = \n');
 fprintf(sourceFile, '  {\n');
 
 %逐个变量的初始化。
@@ -81,8 +81,8 @@ fprintf(sourceFile, ['  for(int i = 0; i < ' num2str(variable_detail.Number) '; 
 fprintf(sourceFile, '  {\n');
 fprintf(sourceFile, '    memcpy(&ulog_header_buffer[counter], &format[i], 3);\n');
 fprintf(sourceFile, '    counter = counter + 3;\n');
-fprintf(sourceFile, '    memcpy(&ulog_header_buffer[counter], format[i].format, format[i].msg_size);\n');
-fprintf(sourceFile, '    counter = counter + format[i].msg_size;\n');
+fprintf(sourceFile, '    memcpy(&ulog_header_buffer[counter], format[i].format, format[i].msgSize);\n');
+fprintf(sourceFile, '    counter = counter + format[i].msgSize;\n');
 fprintf(sourceFile, '  }\n');
 fprintf(sourceFile, '\n');
 
@@ -92,15 +92,15 @@ fprintf(sourceFile, ['  for(int i = 0; i < ' num2str(variable_detail.Number) '; 
 fprintf(sourceFile, '  {\n');
 fprintf(sourceFile, '    memcpy(&ulog_header_buffer[counter], &subscribe[i], 6);\n');
 fprintf(sourceFile, '    counter = counter + 6;\n');
-fprintf(sourceFile, '    memcpy(&ulog_header_buffer[counter], subscribe[i].message_name, subscribe[i].msg_size-3);\n');
-fprintf(sourceFile, '    counter = counter + subscribe[i].msg_size - 3;\n');
+fprintf(sourceFile, '    memcpy(&ulog_header_buffer[counter], subscribe[i].msgName, subscribe[i].msgSize-3);\n');
+fprintf(sourceFile, '    counter = counter + subscribe[i].msgSize - 3;\n');
 fprintf(sourceFile, '  }\n');
 fprintf(sourceFile, '\n');
 
 %%
 %更新入口。
-fprintf(sourceFile, ['  ulog_enter_' topic_name '.p_header = ulog_header_buffer;\n']);
-fprintf(sourceFile, ['  ulog_enter_' topic_name '.header_size = ' num2str(counter) ';\n']);
+fprintf(sourceFile, ['  ulog_enter_' topic_name '.pHeader = ulog_header_buffer;\n']);
+fprintf(sourceFile, ['  ulog_enter_' topic_name '.headerSize = ' num2str(counter) ';\n']);
 
 %%
 %入口初始化函数结束。

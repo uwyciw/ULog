@@ -14,7 +14,7 @@ fprintf(headerFile, '\n');
 fprintf(headerFile, '#include "ulog.h"\n');
 fprintf(headerFile, '\n');
 %头文件声明外部变量。
-fprintf(headerFile, ['extern ULog_Variable_Enter_T ulog_enter_' topic_name ';\n']);
+fprintf(headerFile, ['extern ULOG_VARIABLE_ENTER_T ulog_enter_' topic_name ';\n']);
 fprintf(headerFile, '\n');
 %源文件包含。
 fprintf(sourceFile, ['#include "' topic_name '.h"\n\n']);

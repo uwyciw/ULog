@@ -3,7 +3,7 @@
 
 #include "ulog.h"
 
-extern ULog_Variable_Enter_T ulog_enter_Topic;
+extern ULOG_VARIABLE_ENTER_T ulog_enter_Topic;
 
 
 typedef struct 

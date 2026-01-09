@@ -1,4 +1,4 @@
-/**  
+/**
   ******************************************************************************
     * @file ulog.c
     * @author lx
@@ -9,104 +9,98 @@
                        #####  #####
    =============================================================================
 
-    
+
   ******************************************************************************
     * @attention
     *
     *
-    
+
   ******************************************************************************
-   */ 
+   */
 
 /* Includes ------------------------------------------------------------------*/
 #include "ulog.h"
 
 /**
-  * @brief 日志文件头。
-  */
-static ULog_Header_T ulog_header = {0x55, 0x4c, 0x6f, 0x67, 0x01, 0x12, 0x35, 0x00, 0};
+ * @brief 日志文件头。
+ */
+static ULOG_HEADER_T ulog_header = {0x55, 0x4c, 0x6f, 0x67, 0x01, 0x12, 0x35, 0x00, 0};
 
-unsigned int ULog_Init(ULog_Handle_T * p_handle, ULog_Start_T start, ULog_Write_T write, ULog_Stop_T stop, ULog_Timestamp_T timestamp, ULog_Variable_Enter_T * enter, unsigned int identity)
+unsigned int ULogInit(ULOG_HANDLE_T * pHandle, ULOG_START_T start, ULOG_WRITE_T write,
+                       ULOG_STOP_T stop, ULOG_TIMESTAMP_T timestamp, ULOG_VARIABLE_ENTER_T * enter,
+                       unsigned int identity)
 {
-  unsigned long long timestampTemp;
-  unsigned int err = ULog_Error_None;
+    uint64_t timestampTemp;
+    unsigned int err = ULOG_ERROR_NONE;
 
-  p_handle->enter = enter;
-  p_handle->identity = identity;
-  p_handle->start = start;
-  p_handle->stop = stop;
-  p_handle->timestamp = timestamp;
-  p_handle->write = write;
+    pHandle->enter = enter;
+    pHandle->identity = identity;
+    pHandle->start = start;
+    pHandle->stop = stop;
+    pHandle->timestamp = timestamp;
+    pHandle->write = write;
 
-  p_handle->enter->init();
+    pHandle->enter->init();
 
-  err = p_handle->start(p_handle);
+    err = pHandle->start(pHandle);
 
-  err = p_handle->timestamp(p_handle, &timestampTemp);
-  ulog_header.timestamp = timestampTemp;
+    err = pHandle->timestamp(pHandle, &timestampTemp);
+    ulog_header.timestamp = timestampTemp;
 
-  err = p_handle->write(p_handle, &ulog_header, sizeof(ulog_header));
+    err = pHandle->write(pHandle, &ulog_header, sizeof(ulog_header));
 
-  err = p_handle->write(p_handle, p_handle->enter->p_header, p_handle->enter->header_size);
+    err = pHandle->write(pHandle, pHandle->enter->pHeader, pHandle->enter->headerSize);
 
-  return err;
+    return err;
 }
 
-unsigned int ULog_Update_Name(ULog_Handle_T * p_handle, const char * p_name, void * p_value)
+unsigned int ULogUpdateName(ULOG_HANDLE_T * pHandle, const char * pName, void * pValue)
 {
-  ULog_Variable_Timestamp_T * pTimestamp = (ULog_Variable_Timestamp_T *)p_value;
-  unsigned int err = ULog_Error_None;
+    ULog_Variable_Timestamp_T * pTimestamp = (ULog_Variable_Timestamp_T *)pValue;
+    unsigned int err = ULOG_ERROR_NONE;
 
-  err = p_handle->timestamp(p_handle, &(pTimestamp->timestamp));
+    err = pHandle->timestamp(pHandle, &(pTimestamp->timestamp));
 
-  for(int i = 0; i < p_handle->enter->number; i++)
-  {
-    if(strcmp(p_name, p_handle->enter->variable[i].name) == 0)
-    {
-      int size;
+    for (int i = 0; i < pHandle->enter->number; i++) {
+        if (strcmp(pName, pHandle->enter->pVariable[i].name) == 0) {
+            int size;
 
-      size = p_handle->enter->variable[i].encoder(p_value);
-      err = p_handle->write(p_handle, p_handle->enter->buffer, size);
+            size = pHandle->enter->pVariable[i].encoder(pValue);
+            err = pHandle->write(pHandle, pHandle->enter->pBuffer, size);
 
-      break;
+            break;
+        }
     }
-  }
 
-  return err;
+    return err;
 }
 
-unsigned int ULog_Update_ID(ULog_Handle_T * p_handle, unsigned int id, void * p_value)
+unsigned int ULogUpdateID(ULOG_HANDLE_T * pHandle, unsigned int id, void * pValue)
 {
-  ULog_Variable_Timestamp_T * pTimestamp = (ULog_Variable_Timestamp_T *)p_value;
-  unsigned int err = ULog_Error_None;
+    ULog_Variable_Timestamp_T * pTimestamp = (ULog_Variable_Timestamp_T *)pValue;
+    unsigned int err = ULOG_ERROR_NONE;
 
-  err = p_handle->timestamp(p_handle, &(pTimestamp->timestamp));
+    err = pHandle->timestamp(pHandle, &(pTimestamp->timestamp));
 
-  if(id < p_handle->enter->number)
-  {
-    int size;
+    if (id < pHandle->enter->number) {
+        int size;
 
-    size = p_handle->enter->variable[id].encoder(p_value);
-    err = p_handle->write(p_handle, p_handle->enter->buffer, size);
-  }
-  else
-  {
-    err = ULog_Error_Para;
-  }
-  
-  return err;
+        size = pHandle->enter->pVariable[id].encoder(pValue);
+        err = pHandle->write(pHandle, pHandle->enter->pBuffer, size);
+    } else {
+        err = ULOG_ERROR_PARA;
+    }
+
+    return err;
 }
 
-unsigned int ULog_End(ULog_Handle_T * p_handle)
+unsigned int ULogEnd(ULOG_HANDLE_T * pHandle)
 {
-  unsigned int err = ULog_Error_None;
+    unsigned int err = ULOG_ERROR_NONE;
 
-  err = p_handle->stop(p_handle);
+    err = pHandle->stop(pHandle);
 
-  return err;
+    return err;
 }
 
-unsigned int ULog_GetIdentity(ULog_Handle_T * p_handle)
-{
-  return p_handle->identity;
-}
+unsigned int ULogGetIdentity(ULOG_HANDLE_T * pHandle) { return pHandle->identity; }
