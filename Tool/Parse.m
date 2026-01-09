@@ -7,9 +7,9 @@ clc
 addpath('Function');
 
 %%
-%еДжцнд╪Ч║ё
+%И┘█Г╫╝Ф√┤Д╩╤Ц─┌
 config_file = '../Topic/Topic.xlsx';
-%хуж╬нд╪Ч║ё
+%Ф≈╔Е©≈Ф√┤Д╩╤Ц─┌
 log_file = '../_Example/log.ulg';
 
 %% 
@@ -19,5 +19,5 @@ LogCreate();
 ParseProcess(log_file);
 
 %%
-%╠ё╢Ф╫А╧Ш║ё
+%Д©²Е╜≤Г╩⌠Ф·°Ц─┌
 save('log');

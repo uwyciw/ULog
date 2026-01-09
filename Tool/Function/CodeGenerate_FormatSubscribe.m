@@ -1,32 +1,32 @@
 function CodeGenerate_FormatSubscribe(topic_name, sourceFile, variable_detail)
 
 %% 
-%¸ñÊ½¼°¶©ÔÄµÄ×Ü×Ö½ÚÊı¡£
+%æ ¼å¼åŠè®¢é˜…çš„æ€»å­—èŠ‚æ•°ã€‚
 counter = 0;
 
 %% 
-%Èë¿Ú³õÊ¼»¯º¯Êı¿ªÊ¼¡£
+%å…¥å£åˆå§‹åŒ–å‡½æ•°å¼€å§‹ã€‚
 fprintf(sourceFile, ['static void ULog_' topic_name '_Enter_Init()\n']);
 fprintf(sourceFile, '{\n');
 
 %%
-%ÉùÃ÷¸ñÊ½±äÁ¿¡£
+%å£°æ˜æ ¼å¼å˜é‡ã€‚
 fprintf(sourceFile, '  ULog_Message_Format_T format[] = \n');
 fprintf(sourceFile, '  {\n');
 
-%Öğ¸ö±äÁ¿µÄ³õÊ¼»¯¡£
+%é€ä¸ªå˜é‡çš„åˆå§‹åŒ–ã€‚
 for i = 1:variable_detail.Number
 
-    %»ñµÃÔªËØµÄ¸öÊı¡£
+    %è·å¾—å…ƒç´ çš„ä¸ªæ•°ã€‚
     stringTemp = ['variable_detail.Var' num2str(i)];
     eval(['[elementNumber, ~] = size(' stringTemp ');']);
 
-    %±äÁ¿Ãû¼°Ê±¼ä´ÁÓò¡£
+    %å˜é‡ååŠæ—¶é—´æˆ³åŸŸã€‚
     formatString = [char(variable_detail.Name(i)) ':uint64_t timestamp;'];
-    %Öğ¸öÔªËØ³õÊ¼»¯¡£
+    %é€ä¸ªå…ƒç´ åˆå§‹åŒ–ã€‚
     for j = 1:elementNumber
 
-        %»ñµÃÃ¿¸öÔªËØµÄÀàĞÍ¡¢Î¬ÊıºÍÃû³Æ.
+        %è·å¾—æ¯ä¸ªå…ƒç´ çš„ç±»å‹ã€ç»´æ•°å’Œåç§°.
         eval(['typeVar = char(' stringTemp '(j, 1));']);
         eval(['dimensionVar = ' stringTemp '{j, 2};']);
         eval(['nameVar = char(' stringTemp '(j, 3));']);
@@ -38,27 +38,27 @@ for i = 1:variable_detail.Number
         end
     end
 
-    %³õÊ¼»¯±äÁ¿¡£
+    %åˆå§‹åŒ–å˜é‡ã€‚
     [~, formatSize] = size(formatString);
     formatSize = formatSize + 1;
     counter = counter + formatSize + 3;
     fprintf(sourceFile, ['    {' num2str(uint16(formatSize)) ', 0x46, "']);
 
-    %³õÊ¼»¯Íê³ÉÒ»¸ö±äÁ¿¡£
+    %åˆå§‹åŒ–å®Œæˆä¸€ä¸ªå˜é‡ã€‚
     fprintf(sourceFile, [formatString '"},\n']);
 
 end
 
-%¸ñÊ½±äÁ¿½áÊø¡£
+%æ ¼å¼å˜é‡ç»“æŸã€‚
 fprintf(sourceFile, '  };\n');
 fprintf(sourceFile, '\n');
 
 %%
-%ÉùÃ÷¶©ÔÄ±äÁ¿¡£
+%å£°æ˜è®¢é˜…å˜é‡ã€‚
 fprintf(sourceFile, '  ULog_Message_Subscribe_T subscribe[] = \n');
 fprintf(sourceFile, '  {\n');
 
-%Öğ¸ö±äÁ¿µÄ³õÊ¼»¯¡£
+%é€ä¸ªå˜é‡çš„åˆå§‹åŒ–ã€‚
 for i = 1:variable_detail.Number
     [~, nameLength] = size(char(variable_detail.Name(i)));
     nameLength = nameLength + 1;
@@ -66,17 +66,17 @@ for i = 1:variable_detail.Number
     fprintf(sourceFile, ['    {' num2str(uint16(nameLength+3)) ', 0x41, 0, ' num2str(i-1) ', "' char(variable_detail.Name(i)) '"},\n']);
 end
 
-%¶©ÔÄ±äÁ¿½áÊø¡£
+%è®¢é˜…å˜é‡ç»“æŸã€‚
 fprintf(sourceFile, '  };\n');
 fprintf(sourceFile, '\n');
 
 %%
-%ÉùÃ÷ÈÕÖ¾Í·²¿»º´æ¡£
+%å£°æ˜æ—¥å¿—å¤´éƒ¨ç¼“å­˜ã€‚
 fprintf(sourceFile, ['  static unsigned char ulog_header_buffer[' num2str(counter) '] = {0};\n']);
 fprintf(sourceFile, '  int counter = 0;\n');
 fprintf(sourceFile, '\n');
 
-%½«¸ñÊ½±äÁ¿¿½±´ÖÁ»º´æ¡£
+%å°†æ ¼å¼å˜é‡æ‹·è´è‡³ç¼“å­˜ã€‚
 fprintf(sourceFile, ['  for(int i = 0; i < ' num2str(variable_detail.Number) '; i++)\n']);
 fprintf(sourceFile, '  {\n');
 fprintf(sourceFile, '    memcpy(&ulog_header_buffer[counter], &format[i], 3);\n');
@@ -87,7 +87,7 @@ fprintf(sourceFile, '  }\n');
 fprintf(sourceFile, '\n');
 
 %%
-%½«¶©ÔÄ±äÁ¿¿½±´ÖÁ»º´æ¡£
+%å°†è®¢é˜…å˜é‡æ‹·è´è‡³ç¼“å­˜ã€‚
 fprintf(sourceFile, ['  for(int i = 0; i < ' num2str(variable_detail.Number) '; i++)\n']);
 fprintf(sourceFile, '  {\n');
 fprintf(sourceFile, '    memcpy(&ulog_header_buffer[counter], &subscribe[i], 6);\n');
@@ -98,12 +98,12 @@ fprintf(sourceFile, '  }\n');
 fprintf(sourceFile, '\n');
 
 %%
-%¸üĞÂÈë¿Ú¡£
+%æ›´æ–°å…¥å£ã€‚
 fprintf(sourceFile, ['  ulog_enter_' topic_name '.p_header = ulog_header_buffer;\n']);
 fprintf(sourceFile, ['  ulog_enter_' topic_name '.header_size = ' num2str(counter) ';\n']);
 
 %%
-%Èë¿Ú³õÊ¼»¯º¯Êı½áÊø¡£
+%å…¥å£åˆå§‹åŒ–å‡½æ•°ç»“æŸã€‚
 fprintf(sourceFile, '}\n');
 
 end

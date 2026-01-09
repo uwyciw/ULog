@@ -4,47 +4,47 @@ global log;
 global variable_detail;
 
 %%
-%»ñµÃÏàÓ¦±êÊ¶µÄÊı¾İÓòĞÅÏ¢
+%è·å¾—ç›¸åº”æ ‡è¯†çš„æ•°æ®åŸŸä¿¡æ¯
 field_detail = getfield(variable_detail, ['Var' num2str(id)]);
 
 %% 
-%Êı¾İÓòÊıÄ¿
+%æ•°æ®åŸŸæ•°ç›®
 [fieldNumber, ~] = size(field_detail);
 
 %% 
-%½âÎöÊı¾İ
-%¼ºÊ¹ÓÃµÄ¸ºÔØ×Ö½Ú¼ÆÊıÖµ£¬Ìø¹ıÊ±¼ä´Á¡£
+%è§£ææ•°æ®
+%å·±ä½¿ç”¨çš„è´Ÿè½½å­—èŠ‚è®¡æ•°å€¼ï¼Œè·³è¿‡æ—¶é—´æˆ³ã€‚
 counter = 9;
 for i = 1:fieldNumber
-    %¸ù¾İÊı¾İÀàĞÍÈ·¶¨Êı¾İÓòµÄ×Ö½Ú³¤¶È
+    %æ ¹æ®æ•°æ®ç±»å‹ç¡®å®šæ•°æ®åŸŸçš„å­—èŠ‚é•¿åº¦
     byteSize  = TypeSize(char(field_detail(i, 1))) * cell2mat(field_detail(i, 2));
     
-    %´ÓÊı¾İÖĞ½âÎö³ö±äÁ¿µÄÖµ
+    %ä»æ•°æ®ä¸­è§£æå‡ºå˜é‡çš„å€¼
     value = typecast(uint8(payload_data(counter:counter+byteSize-1)), char(TypeChange(char(field_detail(i, 1)))));
     counter = counter + byteSize;
     
-    %½«±äÁ¿Öµ¸üĞÂµ½ÈÕÖ¾±äÁ¿ÖĞ
-    %½á¹¹Ìå×Ö¶Î
+    %å°†å˜é‡å€¼æ›´æ–°åˆ°æ—¥å¿—å˜é‡ä¸­
+    %ç»“æ„ä½“å­—æ®µ
     structField = ['log.' char(variable_detail.Name(id)) '.' char(field_detail(i, 3))];
-    %¸üĞÂ¼ÆÊı
+    %æ›´æ–°è®¡æ•°
     updateCounter = ['log.' char(variable_detail.Name(id)) '.dataTotalNumber'];
     
-    %È·¶¨ÔªËØµÄÎ¬Êı¡£
+    %ç¡®å®šå…ƒç´ çš„ç»´æ•°ã€‚
     [dimensionNumber, ~] = size(value);
     
-    %Îª¸÷Î¬¸³Öµ¡£
+    %ä¸ºå„ç»´èµ‹å€¼ã€‚
     for j = 1:dimensionNumber
         eval([structField '(' updateCounter '+1, ' num2str(j) ') = value( ' num2str(j) ');']);
     end
 end
 
-%¸üĞÂÊ±¼ä´Á¡£
+%æ›´æ–°æ—¶é—´æˆ³ã€‚
 value = typecast(uint8(payload_data(1:8)), 'uint64');
 structField = ['log.' char(variable_detail.Name(id)) '.timestamp'];
 eval([structField '(' updateCounter '+1, :) = value;']);
 
 %% 
-%¸üĞÂ¼ÆÊı¼ÓÒ»
+%æ›´æ–°è®¡æ•°åŠ ä¸€
     eval([updateCounter '=' updateCounter '+ 1;']);
     
 end

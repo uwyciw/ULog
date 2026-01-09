@@ -1,12 +1,12 @@
 function variable_detail = ExcelParse(excel_file)
 
 %%
-%»ñµÃÅäÖÃÎÄ¼şÖĞ£¬´ı½âÎö±äÁ¿µÄÃû³ÆºÍÊıÄ¿
+%è·å¾—é…ç½®æ–‡ä»¶ä¸­ï¼Œå¾…è§£æå˜é‡çš„åç§°å’Œæ•°ç›®
 [~, variable_detail.Name, ~] = xlsfinfo(excel_file);
 [~, variable_detail.Number] = size(variable_detail.Name);
 
 %%
-%»ñµÃÃ¿Ò»¸ö±íµÄĞÅÏ¢
+%è·å¾—æ¯ä¸€ä¸ªè¡¨çš„ä¿¡æ¯
 for i = 1:variable_detail.Number
     [~, ~, structDetail] = xlsread(excel_file, i);
     variable_detail = setfield(variable_detail, ['Var' num2str(i)], structDetail);

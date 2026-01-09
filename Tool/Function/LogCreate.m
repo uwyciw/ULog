@@ -5,11 +5,11 @@ global log;
 global variable_detail;
 
 %% 
-%待解析日志的变量数目
+%寰呰В鏋愭棩蹇楃殑鍙橀噺鏁扮洰
 variableNumber = getfield(variable_detail, 'Number');
  
 %% 
-%创建日志变量
+%鍒涘缓鏃ュ織鍙橀噺
 for i = 1:variableNumber
     eval(['log.' char(variable_detail.Name(i)) '.dataTotalNumber = 0;']);
 end

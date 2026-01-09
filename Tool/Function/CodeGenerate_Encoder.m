@@ -3,110 +3,110 @@ function CodeGenerate_Encoder(topic_name, sourceFile, variable_detail)
 maxVariableSize = 0;
 fprintf(sourceFile, '__weak static unsigned char default_buffer[];\n\n');
 %% 
-%ÉùÃ÷º¯Êı¡£
+%å£°æ˜å‡½æ•°ã€‚
 for i = 1:variable_detail.Number
     functionName(i) = {['ULog_Encoder_' char(variable_detail.Name(i))]};
     fprintf(sourceFile, ['static unsigned int ' char(functionName(i)) '(void * p_value);\n']);
 end
-%ÉùÃ÷Èë¿Ú³õÊ¼»¯º¯Êı¡£
+%å£°æ˜å…¥å£åˆå§‹åŒ–å‡½æ•°ã€‚
 fprintf(sourceFile, ['static void ULog_' topic_name '_Enter_Init();\n']);
 fprintf(sourceFile, '\n');
 
 %% 
-%´´½¨±äÁ¿Ğ´Èë¿Ú¡£
-%´´½¨±äÁ¿Èë¿ÚÊı×é¡£
+%åˆ›å»ºå˜é‡å†™å…¥å£ã€‚
+%åˆ›å»ºå˜é‡å…¥å£æ•°ç»„ã€‚
 fprintf(sourceFile, 'ULog_Variable_T ulog_enter_array[] = \n');
 fprintf(sourceFile, '{\n');
 for i = 1:variable_detail.Number
     fprintf(sourceFile, ['  {"' char(variable_detail.Name(i)) '", ' char(functionName(i)) '},\n']);
 end
-%½áÊø±äÁ¿Èë¿ÚÊı×é¡£
+%ç»“æŸå˜é‡å…¥å£æ•°ç»„ã€‚
 fprintf(sourceFile, '};\n');
 fprintf(sourceFile, '\n');
 
-%ÉùÃ÷±äÁ¿¡£
+%å£°æ˜å˜é‡ã€‚
 fprintf(sourceFile, ['ULog_Variable_Enter_T ulog_enter_' topic_name ' = \n']);
 fprintf(sourceFile, '{\n');
-%¸øÔªËØ¸½Öµ¡£
+%ç»™å…ƒç´ é™„å€¼ã€‚
 fprintf(sourceFile, ['  ULog_' topic_name '_Enter_Init, 0, 0, default_buffer, ' num2str(variable_detail.Number) ', ulog_enter_array\n']);
-%Ã¿¸ö±äÁ¿µÄÃû³ÆºÍĞ´º¯Êı¡£
-%½áÊø±äÁ¿Ğ´Èë¿Ú¡£
+%æ¯ä¸ªå˜é‡çš„åç§°å’Œå†™å‡½æ•°ã€‚
+%ç»“æŸå˜é‡å†™å…¥å£ã€‚
 fprintf(sourceFile, '};\n');
 fprintf(sourceFile, '\n');
 
 %%
-%ÎªÃ¿¸ö±äÁ¿Éú³Éº¯ÊıÌå¡£
+%ä¸ºæ¯ä¸ªå˜é‡ç”Ÿæˆå‡½æ•°ä½“ã€‚
 for i = 1:variable_detail.Number
     fprintf(sourceFile, ['static unsigned int ' char(functionName(i)) '(void * p_value)\n']);
     fprintf(sourceFile, '{\n');
     
-    %È·¶¨½á¹¹ÌåÔªËØÊıÁ¿¡£
+    %ç¡®å®šç»“æ„ä½“å…ƒç´ æ•°é‡ã€‚
     stringTemp = ['variable_detail.Var' num2str(i)];
     eval(['[elementNumber, ~] = size(' stringTemp ');']);
     
-    %ÉùÃ÷Ö¸Õë±äÁ¿¡£
+    %å£°æ˜æŒ‡é’ˆå˜é‡ã€‚
     typeName = ['  ULog_' char(variable_detail.Name(i)) '_T'];
     fprintf(sourceFile, [typeName ' * pVar = (' typeName ' *)p_value;\n']);
     fprintf(sourceFile, '  unsigned char * pData;\n');
     fprintf(sourceFile, '\n');
     
-    %ÏûÏ¢Í·µÄÆ«ÒÆ¡£
+    %æ¶ˆæ¯å¤´çš„åç§»ã€‚
     counter = 5;
     
-    %¿½±´Ê±¼ä´Á¡£
+    %æ‹·è´æ—¶é—´æˆ³ã€‚
     fprintf(sourceFile, '  pData = (unsigned char *)&(pVar->timestamp);\n');
     fprintf(sourceFile, ['  memcpy(&default_buffer[' num2str(counter) '], pData, 8);\n']);
     fprintf(sourceFile, '\n');
     counter = counter + 8;
     
-    %Öğ¸öÔªËØ²úÉú´úÂë¡£  
+    %é€ä¸ªå…ƒç´ äº§ç”Ÿä»£ç ã€‚  
     for j = 1:elementNumber
-        %»ñµÃÃ¿¸öÔªËØµÄÀàĞÍ¡¢Î¬ÊıºÍÃû³Æ¡£
+        %è·å¾—æ¯ä¸ªå…ƒç´ çš„ç±»å‹ã€ç»´æ•°å’Œåç§°ã€‚
         eval(['typeVar = char(' stringTemp '(j, 1));']);
         eval(['dimensionVar = ' stringTemp '{j, 2};']);
         eval(['nameVar = char(' stringTemp '(j, 3));']);
-        %½«µ±Ç°Ö¸ÕëÖ¸Ïò¶ÔÓ¦ÔªËØ¡£
+        %å°†å½“å‰æŒ‡é’ˆæŒ‡å‘å¯¹åº”å…ƒç´ ã€‚
         if dimensionVar > 1
             fprintf(sourceFile, ['  pData = (unsigned char *)(pVar->' nameVar ');\n']);
         else
             fprintf(sourceFile, ['  pData = (unsigned char *)&(pVar->' nameVar ');\n']);
         end
-        %È·¶¨¿½±´³¤¶È¡£
+        %ç¡®å®šæ‹·è´é•¿åº¦ã€‚
         copySize = dimensionVar * TypeSize(typeVar);
-        %¿½±´Êı¾İ¡£
+        %æ‹·è´æ•°æ®ã€‚
         fprintf(sourceFile, ['  memcpy(&default_buffer[' num2str(counter) '], pData, ' num2str(copySize) ');\n']);
         fprintf(sourceFile, '\n');
-        %¸üĞÂ»º´æË÷Òı¡£
+        %æ›´æ–°ç¼“å­˜ç´¢å¼•ã€‚
         counter = counter + copySize;
     end
     
-    %ÍêÉÆÏûÏ¢Í·¡£
+    %å®Œå–„æ¶ˆæ¯å¤´ã€‚
     %msg_size
     msg_size = typecast(uint16(counter - 3), 'uint8');
     fprintf(sourceFile, ['  default_buffer[0] = ' num2str(msg_size(1)) ';\n']);
     fprintf(sourceFile, ['  default_buffer[1] = ' num2str(msg_size(2)) ';\n']);
     %msg_type 'D'
     fprintf(sourceFile, '  default_buffer[2] = 0x44;\n');
-    %msg_id£¬°´ÕÕ±äÁ¿ÔÚÅäÖÃÎÄ¼şÖĞ´æ´¢µÄË³Ğò£¬´Ó0¿ªÊ¼¡£
+    %msg_idï¼ŒæŒ‰ç…§å˜é‡åœ¨é…ç½®æ–‡ä»¶ä¸­å­˜å‚¨çš„é¡ºåºï¼Œä»0å¼€å§‹ã€‚
     msg_id = typecast(uint16(i-1), 'uint8');
     fprintf(sourceFile, ['  default_buffer[3] = ' num2str(msg_id(1)) ';\n']);
     fprintf(sourceFile, ['  default_buffer[4] = ' num2str(msg_id(2)) ';\n']);
     
-    %È·¶¨ËùÓĞ±äÁ¿ÖĞ£¬ËùĞèÒªµÄ×î´ó»º´æ¡£
+    %ç¡®å®šæ‰€æœ‰å˜é‡ä¸­ï¼Œæ‰€éœ€è¦çš„æœ€å¤§ç¼“å­˜ã€‚
     if maxVariableSize < counter
         maxVariableSize = counter;
     end
     
-    %Êä³ö·µ»ØÖµ¡£
+    %è¾“å‡ºè¿”å›å€¼ã€‚
     fprintf(sourceFile, '\n');
     fprintf(sourceFile, ['  return ' num2str(counter) ';\n']);
 
-    %½áÊøº¯Êı¡£
+    %ç»“æŸå‡½æ•°ã€‚
     fprintf(sourceFile, '}\n');
     fprintf(sourceFile, '\n');
 end
 
-%ÉùÃ÷»º´æ¡£
+%å£°æ˜ç¼“å­˜ã€‚
 fprintf(sourceFile, ['static unsigned char default_buffer[' num2str(maxVariableSize) '] = {0};\n']);
 fprintf(sourceFile, '\n');
 

@@ -8,14 +8,14 @@ extern ULog_Variable_Enter_T ulog_enter_Topic;
 
 typedef struct 
 { 
-  unsigned long long timestamp; 
+  uint64_t timestamp; 
   uint32_t status;
   float high;
 }ULog_Tof_T; 
 
 typedef struct 
 { 
-  unsigned long long timestamp; 
+  uint64_t timestamp; 
   double gyp[3];
   uint64_t counter;
 }ULog_Imu_T; 

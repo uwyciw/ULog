@@ -7,24 +7,24 @@ global variable_detail;
 %%
 file = fopen(log_file);
 
-%ÂÔ¹ıÎÄ¼şÍ·¡£
+%ç•¥è¿‡æ–‡ä»¶å¤´ã€‚
 fread(file, 16, 'uint8');
 
 while true
-%¶ÁÈ¡ÏûÏ¢Á÷µÄÍ·¡£
+%è¯»å–æ¶ˆæ¯æµçš„å¤´ã€‚
     messageHeader = uint8(fread(file, 3, 'uint8'));
     if size(messageHeader) == 0
         break;
     end
     
-%ÅĞ¶ÏÏûÏ¢ÀàĞÍºÍ³¤¶È¡£
+%åˆ¤æ–­æ¶ˆæ¯ç±»å‹å’Œé•¿åº¦ã€‚
     messageSize = typecast(messageHeader(1:2), 'uint16');
     messageType = messageHeader(3);
     
-%¶ÁÈ¡ÏûÏ¢Êı¾İ¡£
+%è¯»å–æ¶ˆæ¯æ•°æ®ã€‚
     messageData = uint8(fread(file, messageSize, 'uint8'));
 
-%Ö»´¦ÀíÊı¾İ¼ÇÂ¼¡£
+%åªå¤„ç†æ•°æ®è®°å½•ã€‚
     if messageType == uint8(68)
         messageID = typecast(messageData(1:2), 'uint16');
         messageID = messageID + 1;
@@ -33,7 +33,7 @@ while true
 end
 
 %%
-%Çå³ı¹ı³ÌÊı¾İ¡£
+%æ¸…é™¤è¿‡ç¨‹æ•°æ®ã€‚
 for i = 1:variable_detail.Number
     variableName = ['log.' char(variable_detail.Name(i))];
     fieldName = '''dataTotalNumber''';

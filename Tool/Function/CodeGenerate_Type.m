@@ -1,24 +1,24 @@
 function CodeGenerate_Type(headerFile, variable_detail)
 %% 
-%Öð¸ö±äÁ¿´¦Àí¡£
+%é€ä¸ªå˜é‡å¤„ç†ã€‚
 for i = 1:variable_detail.Number
-    %Ð´Èë½á¹¹Ìå¿ªÊ¼¡£
+    %å†™å…¥ç»“æž„ä½“å¼€å§‹ã€‚
     fprintf(headerFile, 'typedef struct \n');
     fprintf(headerFile, '{ \n');
     
-    %Ìí¼ÓÊ±¼ä´Á¡£
-    fprintf(headerFile, '  unsigned long long timestamp; \n');
+    %æ·»åŠ æ—¶é—´æˆ³ã€‚
+    fprintf(headerFile, '  uint64_t timestamp; \n');
     
-    %È·¶¨½á¹¹ÌåÔªËØÊýÁ¿¡£
+    %ç¡®å®šç»“æž„ä½“å…ƒç´ æ•°é‡ã€‚
     stringTemp = ['variable_detail.Var' num2str(i)];
     eval(['[elementNumber, ~] = size(' stringTemp ');']);
-    %Öð¸öÔªËØ²úÉú´úÂë¡£  
+    %é€ä¸ªå…ƒç´ äº§ç”Ÿä»£ç ã€‚  
     for j = 1:elementNumber
-        %»ñµÃÃ¿¸öÔªËØµÄÀàÐÍ¡¢Î¬ÊýºÍÃû³Æ¡£
+        %èŽ·å¾—æ¯ä¸ªå…ƒç´ çš„ç±»åž‹ã€ç»´æ•°å’Œåç§°ã€‚
         eval(['typeVar = char(' stringTemp '(j, 1));']);
         eval(['dimensionVar = ' stringTemp '{j, 2};']);
         eval(['nameVar = char(' stringTemp '(j, 3));']);
-        %ÉùÃ÷½á¹¹ÌåµÄÒ»¸öÔªËØ¡£
+        %å£°æ˜Žç»“æž„ä½“çš„ä¸€ä¸ªå…ƒç´ ã€‚
         fprintf(headerFile, ['  ' typeVar ' ' nameVar]);
         if dimensionVar > 1
             fprintf(headerFile, ['[' num2str(dimensionVar) ']']);
@@ -26,7 +26,7 @@ for i = 1:variable_detail.Number
         fprintf(headerFile, ';\n');
     end
     
-    %Ð´Èë½á¹¹Ìå½áÎ²¡£
+    %å†™å…¥ç»“æž„ä½“ç»“å°¾ã€‚
     fprintf(headerFile, ['}ULog_' char(variable_detail.Name(i)) '_T; \n']);
     fprintf(headerFile, '\n');
 end

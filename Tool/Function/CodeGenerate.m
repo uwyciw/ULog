@@ -1,39 +1,39 @@
 function CodeGenerate(topic_name, variable_detail)
 
 %% 
-%²úÉúÍ·ÎÄ¼şºÍÔ´ÎÄ¼şµÄ¾ä±ú¡£
+%äº§ç”Ÿå¤´æ–‡ä»¶å’Œæºæ–‡ä»¶çš„å¥æŸ„ã€‚
 headerFile = fopen(['../Topic/' topic_name '.h'], 'w');
 sourceFile = fopen(['../Topic/' topic_name '.c'], 'w');
 
 %% 
-%ÊäÈëÍ·ÎÄ¼şµÄ±àÒë´úÂë¡£
+%è¾“å…¥å¤´æ–‡ä»¶çš„ç¼–è¯‘ä»£ç ã€‚
 fprintf(headerFile, ['#ifndef _' topic_name '_H_\n']);
 fprintf(headerFile, ['#define _' topic_name '_H_\n']);
 fprintf(headerFile, '\n');
-%Í·ÎÄ¼ş°üº¬¡£
+%å¤´æ–‡ä»¶åŒ…å«ã€‚
 fprintf(headerFile, '#include "ulog.h"\n');
 fprintf(headerFile, '\n');
-%Í·ÎÄ¼şÉùÃ÷Íâ²¿±äÁ¿¡£
+%å¤´æ–‡ä»¶å£°æ˜å¤–éƒ¨å˜é‡ã€‚
 fprintf(headerFile, ['extern ULog_Variable_Enter_T ulog_enter_' topic_name ';\n']);
 fprintf(headerFile, '\n');
-%Ô´ÎÄ¼ş°üº¬¡£
+%æºæ–‡ä»¶åŒ…å«ã€‚
 fprintf(sourceFile, ['#include "' topic_name '.h"\n\n']);
 fprintf(headerFile, '\n');
 
 %%
-%²úÉú±äÁ¿¶¨Òå¡£
+%äº§ç”Ÿå˜é‡å®šä¹‰ã€‚
 CodeGenerate_Type(headerFile, variable_detail);
 
 %%
-%²úÉú±àÂëº¯Êı¡£
+%äº§ç”Ÿç¼–ç å‡½æ•°ã€‚
 CodeGenerate_Encoder(topic_name, sourceFile, variable_detail);
 
 %%
-%²úÉú¸ñÊ½ºÍ¶©ÔÄ´úÂë¡£
+%äº§ç”Ÿæ ¼å¼å’Œè®¢é˜…ä»£ç ã€‚
 CodeGenerate_FormatSubscribe(topic_name, sourceFile, variable_detail);
 
 %% 
-%±à¼­½áÊø²¿·Ö£¬²¢¹Ø±ÕÎÄ¼ş¡£
+%ç¼–è¾‘ç»“æŸéƒ¨åˆ†ï¼Œå¹¶å…³é—­æ–‡ä»¶ã€‚
 fprintf(headerFile, '#endif\n');
 fclose(headerFile);
 fclose(sourceFile);

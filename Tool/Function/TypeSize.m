@@ -1,6 +1,6 @@
 function size = TypeSize(type_name)
 %% 
-%��ø����͵��ֽڴ�С��
+%获得各类型的字节大小。
 switch(type_name)
     case {'bool'}
         size = 1;
