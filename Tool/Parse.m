@@ -13,10 +13,17 @@ config_file = '../Topic/Topic.xlsx';
 log_file = '../_Example/log.ulg';
 
 %% 
+global log;
 global variable_detail;
 variable_detail = ExcelParse(config_file);
 LogCreate();
 ParseProcess(log_file);
+
+%%
+%清理过程变量
+clear config_file
+clear log_file
+clear variable_detail
 
 %%
 %保存结果。

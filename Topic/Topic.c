@@ -6,7 +6,7 @@ static unsigned int ULog_Encoder_Tof(void * pValue);
 static unsigned int ULog_Encoder_Imu(void * pValue);
 static void ULog_Topic_Enter_Init();
 
-ULOG_VARIABLE_T ulog_enter_array[] = 
+static ULOG_VARIABLE_T ulog_enter_array[] = 
 {
   {"Tof", ULog_Encoder_Tof},
   {"Imu", ULog_Encoder_Imu},

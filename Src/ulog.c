@@ -27,8 +27,8 @@
 static ULOG_HEADER_T ulog_header = {0x55, 0x4c, 0x6f, 0x67, 0x01, 0x12, 0x35, 0x00, 0};
 
 unsigned int ULogInit(ULOG_HANDLE_T * pHandle, ULOG_START_T start, ULOG_WRITE_T write,
-                       ULOG_STOP_T stop, ULOG_TIMESTAMP_T timestamp, ULOG_VARIABLE_ENTER_T * enter,
-                       unsigned int identity)
+                      ULOG_STOP_T stop, ULOG_TIMESTAMP_T timestamp, ULOG_VARIABLE_ENTER_T * enter,
+                      unsigned int identity)
 {
     uint64_t timestampTemp;
     unsigned int err = ULOG_ERROR_NONE;
@@ -54,15 +54,15 @@ unsigned int ULogInit(ULOG_HANDLE_T * pHandle, ULOG_START_T start, ULOG_WRITE_T 
     return err;
 }
 
-unsigned int ULogUpdateName(ULOG_HANDLE_T * pHandle, const char * pName, void * pValue)
+unsigned int ULogUpdateName(ULOG_HANDLE_T * pHandle, const char * name, void * pValue)
 {
-    ULog_Variable_Timestamp_T * pTimestamp = (ULog_Variable_Timestamp_T *)pValue;
+    ULOG_VARIABLE_TIMESTAMP_T * pTimestamp = (ULOG_VARIABLE_TIMESTAMP_T *)pValue;
     unsigned int err = ULOG_ERROR_NONE;
 
     err = pHandle->timestamp(pHandle, &(pTimestamp->timestamp));
 
     for (int i = 0; i < pHandle->enter->number; i++) {
-        if (strcmp(pName, pHandle->enter->pVariable[i].name) == 0) {
+        if (strcmp(name, pHandle->enter->pVariable[i].name) == 0) {
             int size;
 
             size = pHandle->enter->pVariable[i].encoder(pValue);
@@ -77,7 +77,7 @@ unsigned int ULogUpdateName(ULOG_HANDLE_T * pHandle, const char * pName, void * 
 
 unsigned int ULogUpdateID(ULOG_HANDLE_T * pHandle, unsigned int id, void * pValue)
 {
-    ULog_Variable_Timestamp_T * pTimestamp = (ULog_Variable_Timestamp_T *)pValue;
+    ULOG_VARIABLE_TIMESTAMP_T * pTimestamp = (ULOG_VARIABLE_TIMESTAMP_T *)pValue;
     unsigned int err = ULOG_ERROR_NONE;
 
     err = pHandle->timestamp(pHandle, &(pTimestamp->timestamp));
@@ -103,4 +103,26 @@ unsigned int ULogEnd(ULOG_HANDLE_T * pHandle)
     return err;
 }
 
-unsigned int ULogGetIdentity(ULOG_HANDLE_T * pHandle) { return pHandle->identity; }
+unsigned int ULogQueryIdentity(ULOG_HANDLE_T * pHandle) { return pHandle->identity; }
+
+unsigned int ULogQueryID(ULOG_HANDLE_T * pHandle, const char * name)
+{
+    unsigned int i;
+
+    for (i = 0; i < pHandle->enter->number; i++) {
+        if (strcmp(name, pHandle->enter->pVariable[i].name) == 0) {
+            return i;
+        }
+    }
+
+    return i;
+}
+
+const char * ULogQueryName(ULOG_HANDLE_T * pHandle, unsigned int id)
+{
+    if (id < pHandle->enter->number) {
+        return pHandle->enter->pVariable[id].name;
+    } else {
+        return NULL;
+    }
+}

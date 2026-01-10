@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\common\bin\cspybat" -f "E:\OSS\ULog\_Example\settings\ulog.Debug.general.xcl" --backend -f "E:\OSS\ULog\_Example\settings\ulog.Debug.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.2\common\bin\cspybat" -f "D:\Git\ULog\_Example\settings\ulog.Debug.general.xcl" --backend -f "D:\Git\ULog\_Example\settings\ulog.Debug.driver.xcl" 
 }
 else
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\common\bin\cspybat" -f "E:\OSS\ULog\_Example\settings\ulog.Debug.general.xcl" --debug_file=$debugfile --backend -f "E:\OSS\ULog\_Example\settings\ulog.Debug.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.2\common\bin\cspybat" -f "D:\Git\ULog\_Example\settings\ulog.Debug.general.xcl" --debug_file=$debugfile --backend -f "D:\Git\ULog\_Example\settings\ulog.Debug.driver.xcl" 
 }

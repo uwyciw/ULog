@@ -15,7 +15,7 @@ fprintf(sourceFile, '\n');
 %% 
 %创建变量写入口。
 %创建变量入口数组。
-fprintf(sourceFile, 'ULOG_VARIABLE_T ulog_enter_array[] = \n');
+fprintf(sourceFile, 'static ULOG_VARIABLE_T ulog_enter_array[] = \n');
 fprintf(sourceFile, '{\n');
 for i = 1:variable_detail.Number
     fprintf(sourceFile, ['  {"' char(variable_detail.Name(i)) '", ' char(functionName(i)) '},\n']);
