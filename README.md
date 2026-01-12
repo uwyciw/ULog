@@ -39,8 +39,8 @@
 │     └── Function                # 以上两个matlab脚本所需要用到的函数
 ├── Topic
 │     ├── Topic.xlse              # 该文件定义需要保存到日志中数据的类型
-│     ├── Topic.h                 # `Generate.m`产生的类型定义
-│     └── Topic.c                 # `Generate.m`产生的函数定义 
+│     ├── Topic.h                 # Generate.m产生的类型定义
+│     └── Topic.c                 # Generate.m产生的函数定义 
 ├── _Doc
 │     └── ULog.pdf                # 内部头文件
 └── _example                      # 例程
