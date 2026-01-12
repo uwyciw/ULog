@@ -90,7 +90,7 @@ unsigned int ULogInit(ULOG_HANDLE_T * pHandle, ULOG_START_T start, ULOG_WRITE_T 
 
 /**
  * @brief 日志更新函数，以变量ID为索引。
- * @note 变量ID为变量在配置文件中的顺序，从0开始。
+ * @note 变量ID是变量在ULOG_VARIABLE_T类型的变量数组中的索引。
  * @param pHandle：日志句柄；id:变量ID；pValue：变量值。
  * @retval 操作成功返回ULOG_ERROR_NONE。
  */

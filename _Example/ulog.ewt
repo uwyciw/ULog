@@ -2856,7 +2856,7 @@
         <group>
             <name>Src</name>
             <file>
-                <name>$PROJ_DIR$\..\Src\ulog.c</name>
+                <name>$PROJ_DIR$\..\Core\Src\ulog.c</name>
             </file>
         </group>
         <group>
