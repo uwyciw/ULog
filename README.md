@@ -44,6 +44,6 @@ English Readme is [here](README-EN.md).
 │     ├── Topic.h                 # Generate.m产生的类型定义
 │     └── Topic.c                 # Generate.m产生的函数定义 
 ├── _Doc
-│     └── ULog.pdf                # 内部头文件
+│     └── ULog.pdf                # ULog格式定义
 └── _example                      # 例程
 ```
