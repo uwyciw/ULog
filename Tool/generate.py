@@ -95,7 +95,7 @@ def code_generate_encoder(topic_name, source_file, variable_detail):
     for i in range(variable_detail['Number']):
         sheet_name = variable_detail['Name'][i]
         function_name = function_names[i]
-        source_file.write(f'  {{"{sheet_name}", {function_name}}},\n')
+        source_file.write(f'  {"{sheet_name}", {function_name}},\n')
     source_file.write('};\n')
     source_file.write('\n')
     
@@ -216,7 +216,8 @@ def code_generate_format_subscribe(topic_name, source_file, variable_detail):
         counter += format_size + 3
         
         # 初始化变量
-        source_file.write(f'    {{0x{format_size:04x}, 0x46, "{format_string}"}},\n')
+        source_file.write(f'    {{0x{format_size:04x}, 0x46, "{format_string}"}},
+')
     
     # 格式变量结束
     source_file.write('  };\n')
@@ -235,7 +236,8 @@ def code_generate_format_subscribe(topic_name, source_file, variable_detail):
         
         # 保留msg_size的定义，因为它在生成代码时仍然需要
         msg_size = name_length + 3
-        source_file.write(f'    {{0x{msg_size:04x}, 0x41, 0, {i}, "{sheet_name}"}},\n')
+        source_file.write(f'    {{0x{msg_size:04x}, 0x41, 0, {i}, "{sheet_name}"}},
+')
     
     # 订阅变量结束
     source_file.write('  };\n')
@@ -276,8 +278,8 @@ def code_generate_format_subscribe(topic_name, source_file, variable_detail):
 def code_generate(topic_name, variable_detail):
     """主函数，协调所有生成过程"""
     # 创建文件
-    header_file_path = f'd:/Git/ULog/Topic/{topic_name}.h'
-    source_file_path = f'd:/Git/ULog/Topic/{topic_name}.c'
+    header_file_path = f'../Topic/{topic_name}.h'
+    source_file_path = f'../Topic/{topic_name}.c'
     
     with open(header_file_path, 'w') as header_file, open(source_file_path, 'w') as source_file:
         # 输入头文件的编译代码
@@ -313,7 +315,7 @@ def main():
     """主函数"""
     
     topic_name = 'Topic'
-    config_file = 'd:/Git/ULog/Topic/Topic.xlsx'
+    config_file = '../Topic/Topic.xlsx'
     
     # 解析Excel文件
     variable_detail = excel_parse(config_file)
