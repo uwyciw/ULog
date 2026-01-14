@@ -36,6 +36,7 @@ English Readme is [here](README-EN.md).
 │          └── ulog.c             # 核心代码
 ├── Tool
 │     ├── flightplot.jar          # 日志文件解析工具
+│     ├── Generate.py             # python脚本，根据用户在Topic/Topic.xlse中定义的要保存到日志中数据的类型，生成日志保存所需要的类型和函数
 │     ├── Generate.m              # matlab脚本，根据用户在Topic/Topic.xlse中定义的要保存到日志中数据的类型，生成日志保存所需要的类型和函数
 │     ├── Parse.m                 # matlab脚本，根据用户在Topic/Topic.xlse中定义的要保存到日志中数据的类型，解析日志文件，并生成matlab数据
 │     └── Function                # 以上两个matlab脚本所需要用到的函数

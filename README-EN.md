@@ -36,6 +36,7 @@ Save data to the log via `ULogUpdateID` or `ULogUpdateName`, with one data type 
 │          └── ulog.c             # Core implementation code
 ├── Tool
 │     ├── flightplot.jar          # Log file parsing tool
+│     ├── Generate.py             # python script that generates the types and functions required for log storage based on the data types defined by the user in Topic/Topic.xlse
 │     ├── Generate.m              # MATLAB script that generates the types and functions required for log storage based on the data types defined by the user in Topic/Topic.xlse
 │     ├── Parse.m                 # MATLAB script that parses log files and generates MATLAB data based on the data types defined by the user in Topic/Topic.xlse
 │     └── Function                # Utility functions required by the two MATLAB scripts above
